@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "vouch.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "vouch.name" . }}
+    helm.sh/chart: {{ include "vouch.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  config.yaml: |
+{{- if .Values.config.vouch }}
+    lasso:
+{{ toYaml .Values.config.vouch | indent 6 }}
+{{- end }}
+{{- if .Values.config.oauth }}
+    oauth:
+{{ toYaml .Values.config.oauth | indent 6 }}
+{{- end }}
+
