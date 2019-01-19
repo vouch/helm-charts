@@ -10,7 +10,7 @@ metadata:
 data:
   config.yaml: |
 {{- if .Values.config.vouch }}
-    lasso:
+    vouch:
 {{ toYaml .Values.config.vouch | indent 6 }}
 {{- end }}
 {{- if .Values.config.oauth }}

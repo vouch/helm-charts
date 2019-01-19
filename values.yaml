@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: lassoproject/lasso
-  tag: 0.2.13
+  repository: voucher/vouch-proxy
+  tag: 0.4.1
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -47,8 +47,8 @@ tolerations: []
 
 affinity: {}
 
-# lasso config
-# bare minimum to get lasso running with google
+# vouch config
+# bare minimum to get vouch running with google
 
 config:
   vouch:
