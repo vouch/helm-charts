@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: voucher/vouch-proxy
-  tag: 0.5.12
+  tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
