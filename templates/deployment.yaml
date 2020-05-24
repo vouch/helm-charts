@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/name: {{ include "vouch.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -50,8 +50,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
       - name: config
-        configMap:
-          name: {{ template "vouch.fullname" . }}
+        secret:
+          secretName: {{ if .Values.existingSecretName }}{{ .Values.existingSecretName }}{{- else }}{{ template "vouch.fullname" . }}{{- end }}
       - name: data
         emptyDir: {}
       {{- with .Values.nodeSelector }}

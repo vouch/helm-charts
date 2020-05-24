@@ -67,3 +67,6 @@ config:
     client_secret:
     callback_urls: []
     preferredDomain:
+
+# existingSecretName -- Allow overriding the config value with an existing secret, like a sealed secret
+existingSecretName: ""
