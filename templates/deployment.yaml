@@ -16,7 +16,11 @@ spec:
   template:
     metadata:
       annotations:
+{{- if not .Values.existingSecretName }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+{{- else }}
+        {}
+{{ end }}
       labels:
         app.kubernetes.io/name: {{ include "vouch.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
