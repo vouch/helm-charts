@@ -52,12 +52,12 @@ affinity: {}
 
 config:
   vouch:
+    port: 9090
     domains: []
     allowAllUsers: false
     whiteList: []
     jwt:
       secret: super-secret-stuff
-    webapp: false
     testing: false
 
   oauth:
