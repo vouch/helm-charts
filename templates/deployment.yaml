@@ -33,6 +33,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: VOUCH_PORT
+              value: {{ .Values.config.vouch.port | quote }}
           ports:
             - name: http
               containerPort: 9090
