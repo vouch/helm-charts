@@ -40,14 +40,39 @@ spec:
             - name: http
               containerPort: 9090
               protocol: TCP
+          {{- if .Values.probes.liveness.enabled }}
           livenessProbe:
             httpGet:
               path: /healthcheck
               port: http
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.liveness.successThreshold }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+          {{- end }}
+          {{- if .Values.probes.readiness.enabled }}
           readinessProbe:
             httpGet:
               path: /healthcheck
               port: http
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.readiness.successThreshold }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+          {{- end }}
+          {{- if and (semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion) .Values.probes.startup.enabled }}
+          startupProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: {{ .Values.probes.startup.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.startup.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.startup.successThreshold }}
+            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
+          {{- end }}
           volumeMounts:
           - name: data
             mountPath: /data

@@ -70,3 +70,26 @@ config:
 
 # existingSecretName -- Allow overriding the config value with an existing secret, like a sealed secret
 existingSecretName: ""
+
+probes:
+  liveness:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+  readiness:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+  startup:
+    enabled: true
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
