@@ -9,6 +9,8 @@ image:
   tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
+imagePullSecrets: []
+
 nameOverride: ""
 fullnameOverride: ""
 
