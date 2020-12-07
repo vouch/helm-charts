@@ -1,7 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "vouch.fullname" . -}}
 {{- $ingressPaths := .Values.ingress.paths -}}
-apiVersion: extensions/v1beta1
+apiVersion: {{ .Values.NetworkPolicy.apiVersion }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
