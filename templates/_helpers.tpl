@@ -30,3 +30,34 @@ Create chart name and version as used by the chart label.
 {{- define "vouch.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "vouch.labels" -}}
+helm.sh/chart: {{ include "vouch.chart" . }}
+{{ include "vouch.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "vouch.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "vouch.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "vouch.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "vouch.fullname" .) .Values.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}
