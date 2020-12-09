@@ -1,36 +1,58 @@
+{{- $deploymentAnnotations := .Values.deploymentAnnotations }}
+{{- if not .Values.existingSecretName }}
+{{- $secretAnnotation := dict "checksum/secret" (print (print $.Template.BasePath "/secret.yaml") . | sha256sum) }}
+{{- $deploymentAnnotations := merge $deploymentAnnotations $secretAnnotation }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "vouch.fullname" . }}
+  {{- if $deploymentAnnotations }}
+  annotations:
+    {{- range $key, $value := $deploymentAnnotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
   labels:
-    app.kubernetes.io/name: {{ include "vouch.name" . }}
-    helm.sh/chart: {{ include "vouch.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "vouch.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+{{- if .Values.strategy }}
+  strategy:
+{{ toYaml .Values.strategy | indent 4 }}
+{{ if eq .Values.strategy.type "Recreate" }}
+    rollingUpdate: null
+{{- end }}
+{{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "vouch.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "vouch.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations:
-{{- if not .Values.existingSecretName }}
-        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-{{- else }}
-        {}
-{{ end }}
       labels:
-        app.kubernetes.io/name: {{ include "vouch.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "vouch.selectorLabels" . | nindent 8 }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+      {{- end }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "vouch.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{- if .Values.dnsConfig }}
       dnsConfig:
         {{- toYaml .Values.dnsConfig | nindent 8 }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
