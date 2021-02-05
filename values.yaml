@@ -107,8 +107,6 @@ config:
     domains: []
     allowAllUsers: false
     whiteList: []
-    jwt:
-      secret: super-secret-stuff
     testing: false
 
   oauth:
