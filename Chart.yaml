@@ -3,7 +3,7 @@ apiVersion: v1
 appVersion: "0.17.3"
 description: An SSO and OAuth login solution for nginx using the auth_request module
 name: vouch
-version: 1.0.0
+version: 2.0.0
 icon: https://avatars0.githubusercontent.com/u/45102943?s=200&v=4
 sources:
   - https://github.com/vouch/vouch-proxy/
