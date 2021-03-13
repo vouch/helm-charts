@@ -9,6 +9,11 @@ image:
   tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
+# Allow to specify an alternate command before launching vouch
+# ex: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"]
+command: []
+args: []
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
