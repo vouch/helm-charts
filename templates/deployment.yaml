@@ -1,15 +1,15 @@
-{{- $deploymentAnnotations := .Values.deploymentAnnotations }}
+{{- $podAnnotations := .Values.podAnnotations }}
 {{- if not .Values.existingSecretName }}
 {{- $secretAnnotation := dict "checksum/secret" (include (print $.Template.BasePath "/secret.yaml") . | sha256sum) }}
-{{- $deploymentAnnotations := merge $deploymentAnnotations $secretAnnotation }}
+{{- $podAnnotations := merge $podAnnotations $secretAnnotation }}
 {{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "vouch.fullname" . }}
-  {{- if $deploymentAnnotations }}
+  {{- if .Values.deploymentAnnotations }}
   annotations:
-    {{- range $key, $value := $deploymentAnnotations }}
+    {{- range $key, $value := .Values.deploymentAnnotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
   {{- end }}
@@ -31,9 +31,9 @@ spec:
     metadata:
       labels:
         {{- include "vouch.selectorLabels" . | nindent 8 }}
-      {{- if .Values.podAnnotations }}
+      {{- if $podAnnotations }}
       annotations:
-        {{- range $key, $value := .Values.podAnnotations }}
+        {{- range $key, $value := $podAnnotations }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
       {{- end }}
