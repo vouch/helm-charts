@@ -108,7 +108,7 @@ config:
     allowAllUsers: false
     whiteList: []
     jwt:
-      secret: super-secret-stuff
+      secret: ''
     testing: false
 
   oauth:
