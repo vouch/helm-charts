@@ -60,8 +60,9 @@ spec:
             {{- toYaml .Values.args | nindent 12 }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: VOUCH_PORT
-              value: {{ .Values.config.vouch.port | quote }}
+          {{- if .Values.extraEnvs }}
+          {{ toYaml .Values.extraEnvs | nindent 10 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 9090
