@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: voucher/vouch-proxy
+  repository: quay.io/vouch/vouch-proxy
   tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
