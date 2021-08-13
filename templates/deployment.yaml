@@ -64,7 +64,7 @@ spec:
               value: {{ .Values.config.vouch.port | quote }}
           ports:
             - name: http
-              containerPort: 9090
+              containerPort: {{ .Values.config.vouch.port }}
               protocol: TCP
           {{- if .Values.probes.liveness.enabled }}
           livenessProbe:
