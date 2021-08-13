@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: voucher/vouch-proxy
+  repository: quay.io/vouch/vouch-proxy
   tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
@@ -48,10 +48,10 @@ probes:
   liveness:
     enabled: true
     initialDelaySeconds: 0
+    periodSeconds: 10
     timeoutSeconds: 1
     successThreshold: 1
     failureThreshold: 5
-    periodSeconds: 10
   readiness:
     enabled: true
     initialDelaySeconds: 0
@@ -61,8 +61,6 @@ probes:
     periodSeconds: 10
   startup:
     enabled: true
-    timeoutSeconds: 1
-    successThreshold: 1
     initialDelaySeconds: 5
     failureThreshold: 30
     periodSeconds: 10
@@ -126,26 +124,3 @@ config:
 
 # existingSecretName -- Allow overriding the config value with an existing secret, like a sealed secret
 existingSecretName: ""
-
-probes:
-  liveness:
-    enabled: true
-    initialDelaySeconds: 0
-    periodSeconds: 1
-    timeoutSeconds: 1
-    successThreshold: 1
-    failureThreshold: 3
-  readiness:
-    enabled: true
-    initialDelaySeconds: 0
-    periodSeconds: 1
-    timeoutSeconds: 1
-    successThreshold: 1
-    failureThreshold: 3
-  startup:
-    enabled: true
-    initialDelaySeconds: 0
-    periodSeconds: 1
-    timeoutSeconds: 1
-    successThreshold: 1
-    failureThreshold: 3

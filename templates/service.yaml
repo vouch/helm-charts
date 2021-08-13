@@ -3,17 +3,14 @@ kind: Service
 metadata:
   name: {{ include "vouch.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "vouch.name" . }}
-    helm.sh/chart: {{ include "vouch.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "vouch.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "vouch.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "vouch.selectorLabels" . | nindent 4 }}

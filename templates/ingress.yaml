@@ -1,13 +1,14 @@
+{{- $kubeTargetVersion := default .Capabilities.KubeVersion.GitVersion .Values.kubeTargetVersionOverride }}
 {{- if .Values.ingress.enabled -}}
-{{- $ingressPaths := .Values.ingress.paths -}}
 {{- $fullName := include "vouch.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- $ingressPaths := .Values.ingress.paths -}}
+{{- if semverCompare ">=1.19-0" $kubeTargetVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" $kubeTargetVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
-apiVersion: extensions/v1beta1
+apiVersion: {{ .Values.controller.ingress.apiVersion }}
 {{- end }}
-kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
@@ -35,8 +36,16 @@ spec:
   {{- range $ingressPaths }}
           - path: {{ . }}
             backend:
+            {{- if semverCompare ">=1.19-0" $kubeTargetVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: http
+            pathType: Prefix
+            {{- else -}}
               serviceName: {{ $fullName }}
               servicePort: http
+            {{- end }}
   {{- end }}
   {{- end }}
 {{- end }}
