@@ -9,6 +9,7 @@ apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: {{ .Values.controller.ingress.apiVersion }}
 {{- end }}
+kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
