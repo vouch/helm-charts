@@ -22,8 +22,10 @@ maintainers:
     email: helm@gavinmogan.com
 annotations:
   artifacthub.io/changes: |
-    - This is what changed in this version
+    - Upgrade to latest version of templates including using right api types for ingress
+    - update to new vouch image location
+    - update to new app version
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: vouch-proxy
-      image: quay.io/vouch/vouch-proxy:2.4.2
+      image: quay.io/vouch/vouch-proxy:0.32.0
