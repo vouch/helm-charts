@@ -22,6 +22,8 @@ maintainers:
     email: brian@roadie.io
   - name: Martina
     email: martina@roadie.io
+  - name: Gavin Mogan
+    email: helm@gavinmogan.com
 annotations:
   artifacthub.io/changes: |
     - Add ingress class name

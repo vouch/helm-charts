@@ -10,5 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # TODO push this to pages
-      - run: echo TODO push this to pages
+      - run: echo "::set-output name=output::$(helm package charts/vouch)"
+        id: helm_package
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: artifacts/*.tgz

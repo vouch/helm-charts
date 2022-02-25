@@ -27,4 +27,4 @@ jobs:
           ignore_missing_schemas: true
           files: tmp.yaml
 
-      - run: rm -rf tmp.yaml
+      - run: rm -f tmp.yaml
