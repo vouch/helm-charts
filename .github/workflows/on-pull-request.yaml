@@ -1,0 +1,30 @@
+---
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  validate-helm-chart:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: helm-lint
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm lint charts/vouch -f charts/vouch/.test_values.yaml
+
+      - name: generate-template
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm template charts/vouch -f charts/vouch/.test_values.yaml > tmp.yaml
+
+      - name: kube-validate
+        uses: instrumenta/kubeval-action@master
+        with:
+          ignore_missing_schemas: true
+          files: tmp.yaml
+
+      - run: rm -rf tmp.yaml

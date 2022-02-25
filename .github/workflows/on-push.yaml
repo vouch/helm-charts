@@ -1,0 +1,14 @@
+---
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  push-to-pages:
+    needs: pre-ci
+    runs-on: ubuntu-latest
+
+    steps:
+      # TODO push this to pages
+      - run: echo TODO push this to pages

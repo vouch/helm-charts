@@ -18,8 +18,10 @@ home: https://github.com/vouch/vouch-proxy/
 sources:
   - https://github.com/vouch/vouch-proxy/
 maintainers:
-  - name: Gavin Mogan
-    email: helm@gavinmogan.com
+  - name: Brian
+    email: brian@roadie.io
+  - name: Martina
+    email: martina@roadie.io
 annotations:
   artifacthub.io/changes: |
     - Add ingress class name

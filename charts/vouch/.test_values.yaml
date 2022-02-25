@@ -1,0 +1,14 @@
+---
+config:
+  vouch:
+    jwt:
+      secret: asdf
+  oauth:
+    scopes: [openid, email, profile]
+    provider: oidc
+    client_id: 1234
+    client_secret: secretsecret
+    auth_url: https://example.com/authorize
+    token_url: https://example.com/oauth/token
+    user_info_url: https://example.com/userinfo
+    preferredDomain: example.com
