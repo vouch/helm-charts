@@ -8,7 +8,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-#TODO
+helm repo add vouch https://vouch.github.io/helm-charts/
 ```
 
 You can then run `helm search repo vouch` to see the charts.
