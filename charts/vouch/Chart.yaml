@@ -25,6 +25,9 @@ maintainers:
   - name: Gavin Mogan
     email: helm@gavinmogan.com
 annotations:
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/vouch/helm-charts/issues/new/choose
   artifacthub.io/changes: |
     - Add ingress class name
   artifacthub.io/containsSecurityUpdates: "false"
