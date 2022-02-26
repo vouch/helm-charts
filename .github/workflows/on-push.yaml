@@ -6,7 +6,6 @@ on:
 
 jobs:
   push-to-pages:
-    needs: pre-ci
     runs-on: ubuntu-latest
 
     steps:
