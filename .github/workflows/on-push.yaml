@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "::set-output name=output::$(helm package charts/vouch)"
-        id: helm_package
+      - uses: actions/checkout@v2
 
       - name: Configure Git
         run: |
