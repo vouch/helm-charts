@@ -62,6 +62,10 @@ spec:
           env:
             - name: VOUCH_PORT
               value: {{ .Values.config.vouch.port | quote }}
+            {{- range .Values.extraEnvVars }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.config.vouch.port }}

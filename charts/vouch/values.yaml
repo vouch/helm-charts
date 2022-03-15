@@ -124,3 +124,10 @@ config:
 
 # existingSecretName -- Allow overriding the config value with an existing secret, like a sealed secret
 existingSecretName: ""
+
+# An array to add extra environment variables
+# Example:
+# extraEnvVars:
+#   - name: HTTPS_PROXY
+#     value: "https://example.com"
+extraEnvVars: []
