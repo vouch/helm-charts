@@ -1,14 +1,10 @@
-{{ template "chart.header" . }}
-{{ template "chart.description" . }}
-
-{{ template "chart.versionLine" . }}
-
-{{ template "chart.sourceLinkLine" . }}
-
 ## Changelog
 
 3.1.0
   * Add extraEnvVars option to add env variables to the vouch deployment
+
+3.0.7
+  * Fix the README.md file. It's no longer a template.
 
 3.0.6
   * Allow vouch-proxy to default the secret at startup
@@ -25,8 +21,4 @@
 0.2.0
   * Replacing configmap with secret, and allow existingSecretName
   * Upgrade to latest vouch (0.9.5)
-
-{{ template "chart.requirementsSection" . }}
-
-{{ template "chart.valuesSection" . }}
 
