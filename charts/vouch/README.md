@@ -1,10 +1,14 @@
 ## Changelog
 
+3.1.0
+  * Add extraEnvVars option to add env variables to the vouch deployment
+
 3.0.7
   * Fix the README.md file. It's no longer a template.
 
 3.0.6
   * Allow vouch-proxy to default the secret at startup
+
 
 2.0.0
   * Require Vouch secret to be set (#8 thanks @punkle)
