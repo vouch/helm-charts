@@ -131,3 +131,9 @@ existingSecretName: ""
 #   - name: HTTPS_PROXY
 #     value: "https://example.com"
 extraEnvVars: []
+
+# An (optional) array to pull environment variables from secrets or configmaps
+# passes directly through to standard Kubernetes envFrom.
+# envFrom:
+#   - secretRef:
+#       name: vouch-env-secret

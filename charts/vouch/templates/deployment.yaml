@@ -66,6 +66,10 @@ spec:
             - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
+          {{- if .Values.envFrom }}
+          envFrom:
+            {{ toYaml .Values.envFrom | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.config.vouch.port }}
