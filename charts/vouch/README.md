@@ -1,5 +1,8 @@
 ## Changelog
 
+3.2.0
+  * Add envFrom option to enable passing env vars from secrets
+
 3.1.0
   * Add extraEnvVars option to add env variables to the vouch deployment
 
