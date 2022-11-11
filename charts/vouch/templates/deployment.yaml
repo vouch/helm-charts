@@ -106,16 +106,38 @@ spec:
           volumeMounts:
           - name: data
             mountPath: /data
+          {{- if .Values.additionalCA }}
+          - name: merge-ca
+            mountPath: /etc/ssl/certs/
+          {{- end }}
           - name: config
             mountPath: /config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.additionalCA }}
+      initContainers:
+        - name: merge-ca
+          image: alpine
+          command: [ '/bin/sh', '-c', 'cp /etc/ssl/certs/ca-certificates.crt /CA && cat /ca-map/ca.crt >> /CA/ca-certificates.crt' ]
+          volumeMounts:
+            - name: ca-configmap
+              mountPath: /ca-map
+            - name: merge-ca
+              mountPath: /CA
+      {{- end }}
       volumes:
       - name: config
         secret:
           secretName: {{ if .Values.existingSecretName }}{{ .Values.existingSecretName }}{{- else }}{{ template "vouch.fullname" . }}{{- end }}
       - name: data
         emptyDir: {}
+      {{- if .Values.additionalCA }}
+      - name: ca-configmap
+        configMap:
+          name: {{ include "vouch.fullname" . }}-ca
+      - name: merge-ca
+        emptyDir: {}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
