@@ -1,5 +1,8 @@
 ## Changelog
 
+3.2.0
+  * Add an option to set extra self-signed CA files
+
 3.1.0
   * Add extraEnvVars option to add env variables to the vouch deployment
 
