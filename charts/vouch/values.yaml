@@ -131,3 +131,11 @@ existingSecretName: ""
 #   - name: HTTPS_PROXY
 #     value: "https://example.com"
 extraEnvVars: []
+
+# allow to add a new CA for Vouch proxy, for example when using a self-signed CA in your company
+# put your CA as a raw value
+# additionalCA: |
+#    -----BEGIN CERTIFICATE-----
+#    MIIFYDCCA0igAwIBAgIUbblUcUL4T5C[...]
+#    -----END CERTIFICATE-----
+additionalCA: ""
