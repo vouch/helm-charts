@@ -130,4 +130,10 @@ existingSecretName: ""
 # extraEnvVars:
 #   - name: HTTPS_PROXY
 #     value: "https://example.com"
+#   - name: SECRET_VALUE
+#     valueFrom:
+#       secretKeyRef:
+#         name: my-secrets
+#         key: password
+
 extraEnvVars: []
