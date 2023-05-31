@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 type: application
-appVersion: "0.36"
+appVersion: "0.39"
 version: 3.1.0
 name: vouch
 description: An SSO and OAuth login solution for nginx using the auth_request module.
