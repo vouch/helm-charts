@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: quay.io/vouch/vouch-proxy
-  tag: "{{ .Chart.AppVersion }}"
+  # Overrides image tag. Default is {{ .Chart.AppVersion }}
+  tag: ""
   pullPolicy: IfNotPresent
 
 # Allow to specify an alternate command before launching vouch

@@ -1,5 +1,8 @@
 ## Changelog
 
+3.2.0
+  * Default app version is now 0.39. Version can be overridden by specifying `image.tag`
+
 3.1.0
   * Add extraEnvVars option to add env variables to the vouch deployment
 
