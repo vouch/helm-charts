@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "bumpVersion": "patch",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^Chart.yaml$"
+      ],
+      "matchStringsStrategy": "combination",
+      "matchStrings": [
+        "appVersion:\\s+\"(?<currentValue>v[a-z0-9.-]+)\"",
+        "image:\\s+\"(?<depName>[a-z/.-]+):(?<currentValue>[a-z0-9.-]+)\""
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    }
+  ],
+  "helmv3": {
+    "fileMatch": [
+      "^Chart.yaml$"
+    ]
+  }
+}
