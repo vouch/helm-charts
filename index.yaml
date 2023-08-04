@@ -12,6 +12,46 @@ entries:
         - name: support
           url: https://github.com/vouch/helm-charts/issues/new/choose
     apiVersion: v2
+    appVersion: "0.39"
+    created: "2023-08-04T21:24:48.185677409Z"
+    description: An SSO and OAuth login solution for nginx using the auth_request
+      module.
+    digest: 932df392b8a32b700a51149cb456b5cf9be4fde6224b6a55e29dd3a7da3f0a20
+    home: https://github.com/vouch/vouch-proxy/
+    icon: https://avatars0.githubusercontent.com/u/45102943?s=200&v=4
+    keywords:
+    - nginx
+    - auth
+    - oauth2
+    - authentication
+    - nginx-proxy
+    - sso
+    - sso-login
+    maintainers:
+    - email: brian@roadie.io
+      name: Brian
+    - email: martina@roadie.io
+      name: Martina
+    - email: helm@gavinmogan.com
+      name: Gavin Mogan
+    name: vouch
+    sources:
+    - https://github.com/vouch/vouch-proxy/
+    type: application
+    urls:
+    - https://github.com/vouch/helm-charts/releases/download/vouch-3.2.0/vouch-3.2.0.tgz
+    version: 3.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - Add ingress class name
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: vouch-proxy
+          image: "quay.io/vouch/vouch-proxy:0.32.0"
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/vouch/helm-charts/issues/new/choose
+    apiVersion: v2
     appVersion: "0.36"
     created: "2022-07-08T09:05:46.686723036Z"
     description: An SSO and OAuth login solution for nginx using the auth_request
@@ -238,4 +278,4 @@ entries:
     urls:
     - https://github.com/vouch/helm-charts/releases/download/vouch-3.0.3/vouch-3.0.3.tgz
     version: 3.0.3
-generated: "2022-07-08T09:05:46.686745536Z"
+generated: "2023-08-04T21:24:48.185799609Z"
