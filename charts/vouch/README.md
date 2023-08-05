@@ -1,7 +1,10 @@
 ## Changelog
 
+3.2.1
+  * Version can be overridden by specifying `image.tag`
+
 3.2.0
-  * Default app version is now 0.39. Version can be overridden by specifying `image.tag`
+  * Default app version is now 0.39.
 
 3.1.0
   * Add extraEnvVars option to add env variables to the vouch deployment
@@ -11,7 +14,6 @@
 
 3.0.6
   * Allow vouch-proxy to default the secret at startup
-
 
 2.0.0
   * Require Vouch secret to be set (#8 thanks @punkle)

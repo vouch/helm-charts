@@ -33,12 +33,13 @@ Create chart name and version as used by the chart label.
 
 {{/*
 Common labels
+App version - handle Docker image SHAs by replacing invalid characters and truncate to Kubernetes 63 char limit.
 */}}
 {{- define "vouch.labels" -}}
 helm.sh/chart: {{ include "vouch.chart" . }}
 {{ include "vouch.selectorLabels" . }}
 {{- if or .Chart.AppVersion .Values.image.tag }}
-app.kubernetes.io/version: {{ .Values.image.tag | default .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Values.image.tag | default .Chart.AppVersion | replace "@" "." | replace "sha256:" "" | trunc 63 | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
