@@ -1,7 +1,7 @@
 # Vouch Helm Charts
 <a href="https://github.com/jessebot/vouch-helm-chart/releases"><img src="https://img.shields.io/github/v/release/jessebot/vouch-helm-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
 
-This is a fork of the official Vouch helm chart with some quality of life updates to match standard helm chart style. It's actively maintained and kept up to date by @jessebot and renovateBot, so if a new version of the Vouch docker image we'll automatically get a PR to update it :)
+This is a fork of the official Vouch helm chart with some quality of life updates to match standard helm chart style. It's actively maintained and kept up to date by @jessebot and renovateBot, so if a new version of the Vouch docker image comes out, we'll automatically get a PR to update it :)
 
 ## Usage
 
@@ -70,7 +70,7 @@ stringData:
 ```
 
 ## License
-Chart documentation is available in [helm-charts licencse](./LICENSE). We've kept it the same as the upstream chart.
+Chart documentation is available in [helm-charts licencse](./LICENSE). We've kept it the same as the upstream chart. All credit for the vouch-proxy goes to the [Vouch project](https://github.com/vouch) :)
 
 ## Contributing
 We'd love to have you contribute! Please refer to our [contribution guidelines](./CONTRIBUTING.md) for details.
