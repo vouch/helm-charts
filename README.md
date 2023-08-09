@@ -1,5 +1,5 @@
 # Vouch Helm Charts
-<a href="https://github.com/jessebot/vouch-helm-charts/releases"><img src="https://img.shields.io/github/v/release/jessebot/vouch-helm-charts?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
+<a href="https://github.com/jessebot/vouch-helm-chart/releases"><img src="https://img.shields.io/github/v/release/jessebot/vouch-helm-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
 
 ## Usage
 
