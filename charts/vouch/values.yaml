@@ -2,14 +2,16 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- how many pod replicas to deploy
 replicaCount: 1
 
 image:
   repository: quay.io/vouch/vouch-proxy
-  tag: "{{ .Chart.AppVersion }}"
+  # -- change the tag we use for the vouch docker image
+  tag: ""
   pullPolicy: IfNotPresent
 
-# Allow to specify an alternate command before launching vouch
+# -- Allow to specify an alternate command before launching vouch
 # ex: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"]
 command: []
 args: []
@@ -19,11 +21,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
 
@@ -122,12 +124,11 @@ config:
     callback_urls: []
     preferredDomain:
 
-# existingSecretName -- Allow overriding the config value with an existing secret, like a sealed secret
+# -- Allow overriding the config value with an existing secret, like a sealed secret
 existingSecretName: ""
 
-# An array to add extra environment variables
+# -- An array to add extra environment variables
+extraEnvVars: []
 # Example:
-# extraEnvVars:
 #   - name: HTTPS_PROXY
 #     value: "https://example.com"
-extraEnvVars: []
