@@ -1,5 +1,5 @@
 {{- $podAnnotations := .Values.podAnnotations }}
-{{- if not .Values.existingSecretName }}
+{{- if not .Values.config.existingSecretName }}
 {{- $secretAnnotation := dict "checksum/secret" (include (print $.Template.BasePath "/secret.yaml") . | sha256sum) }}
 {{- $podAnnotations := merge $podAnnotations $secretAnnotation }}
 {{- end }}
@@ -113,7 +113,7 @@ spec:
       volumes:
       - name: config
         secret:
-          secretName: {{ if .Values.existingSecretName }}{{ .Values.existingSecretName }}{{- else }}{{ template "vouch.fullname" . }}{{- end }}
+          secretName: {{ if .Values.config.existingSecretName }}{{ .Values.config.existingSecretName }}{{- else }}{{ template "vouch.fullname" . }}{{- end }}
       - name: data
         emptyDir: {}
       {{- with .Values.nodeSelector }}

@@ -1,6 +1,6 @@
 # vouch
 
-![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
+![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
 
 An SSO and OAuth login solution for nginx using the auth_request module.
 
@@ -25,11 +25,12 @@ An SSO and OAuth login solution for nginx using the auth_request module.
 | affinity | object | `{}` |  |
 | args | list | `[]` |  |
 | command | list | `[]` | Allow to specify an alternate command before launching vouch ex: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"] |
+| config.existingSecretName | string | `""` | Allow overriding the config value with an existing secret, like a sealed secret |
 | config.oauth.callback_urls | list | `[]` |  |
-| config.oauth.client_id | string | `nil` |  |
-| config.oauth.client_secret | string | `nil` |  |
-| config.oauth.preferredDomain | string | `nil` |  |
-| config.oauth.provider | string | `nil` |  |
+| config.oauth.client_id | string | `""` | clientID from  your provider |
+| config.oauth.client_secret | string | `""` | clientSecret from your provider |
+| config.oauth.preferredDomain | string | `""` |  |
+| config.oauth.provider | string | `""` | oauth2 provider, such as keycloak |
 | config.vouch.allowAllUsers | bool | `false` |  |
 | config.vouch.domains | list | `[]` |  |
 | config.vouch.jwt.secret | string | `""` |  |
@@ -37,7 +38,6 @@ An SSO and OAuth login solution for nginx using the auth_request module.
 | config.vouch.testing | bool | `false` |  |
 | config.vouch.whiteList | list | `[]` |  |
 | deploymentAnnotations | object | `{}` |  |
-| existingSecretName | string | `""` | Allow overriding the config value with an existing secret, like a sealed secret |
 | extraEnvVars | list | `[]` | An array to add extra environment variables |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |

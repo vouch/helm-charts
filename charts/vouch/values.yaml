@@ -107,6 +107,9 @@ deploymentAnnotations: {}
 # bare minimum to get vouch running with google
 
 config:
+  # -- Allow overriding the config value with an existing secret, like a sealed secret
+  existingSecretName: ""
+
   vouch:
     port: 9090
     domains: []
@@ -116,16 +119,16 @@ config:
       secret: ''
     testing: false
 
+  # https://console.developers.google.com/apis/credentials
   oauth:
-    provider:
-    # https://console.developers.google.com/apis/credentials
-    client_id:
-    client_secret:
+    # -- oauth2 provider, such as keycloak
+    provider: ""
+    # -- clientID from  your provider
+    client_id: ""
+    # -- clientSecret from your provider
+    client_secret: ""
     callback_urls: []
-    preferredDomain:
-
-# -- Allow overriding the config value with an existing secret, like a sealed secret
-existingSecretName: ""
+    preferredDomain: ""
 
 # -- An array to add extra environment variables
 extraEnvVars: []
