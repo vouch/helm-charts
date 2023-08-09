@@ -1,6 +1,6 @@
 # vouch
 
-![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
+![Version: 3.3.1](https://img.shields.io/badge/Version-3.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
 
 An SSO and OAuth login solution for nginx using the auth_request module.
 
@@ -23,24 +23,24 @@ An SSO and OAuth login solution for nginx using the auth_request module.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| args | list | `[]` |  |
-| command | list | `[]` | Allow to specify an alternate command before launching vouch ex: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"] |
+| args | list | `[]` | arguments to command for container |
+| command | list | `[]` | Allow to specify an alternate command before launching vouch example: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"] |
 | config.existingSecretName | string | `""` | Allow overriding the config value with an existing secret, like a sealed secret |
-| config.oauth.callback_urls | list | `[]` |  |
+| config.oauth.callback_urls | list | `[]` | valid callback urls to use, example https://vouch.example.com/auth |
 | config.oauth.client_id | string | `""` | clientID from  your provider |
 | config.oauth.client_secret | string | `""` | clientSecret from your provider |
-| config.oauth.preferredDomain | string | `""` |  |
+| config.oauth.preferredDomain | string | `""` | preferred domain |
 | config.oauth.provider | string | `""` | oauth2 provider, such as keycloak |
-| config.vouch.allowAllUsers | bool | `false` |  |
-| config.vouch.domains | list | `[]` |  |
-| config.vouch.jwt.secret | string | `""` |  |
-| config.vouch.port | int | `9090` |  |
-| config.vouch.testing | bool | `false` |  |
-| config.vouch.whiteList | list | `[]` |  |
+| config.vouch.allowAllUsers | bool | `false` | wheather or not to allow ALL users to login |
+| config.vouch.domains | list | `[]` | specific domains you'd like to allow access from |
+| config.vouch.jwt.secret | string | `""` | pass in a secret to used for cookies |
+| config.vouch.port | int | `9090` | the container port for vouch |
+| config.vouch.testing | bool | `false` | set to true to enable a testing mode, see more: https://github.com/vouch/vouch-proxy#im-getting-an-infinite-redirect-loop-which-returns-me-to-my-idp-googleoktagithub |
+| config.vouch.whiteList | list | `[]` | list of emails for users that allowed to use SSO via vouch |
 | deploymentAnnotations | object | `{}` |  |
 | extraEnvVars | list | `[]` | An array to add extra environment variables |
 | fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy, set to always if using an image with the latest tag |
 | image.repository | string | `"quay.io/vouch/vouch-proxy"` |  |
 | image.tag | string | `""` | change the tag we use for the vouch docker image |
 | imagePullSecrets | list | `[]` |  |
@@ -52,7 +52,7 @@ An SSO and OAuth login solution for nginx using the auth_request module.
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext | object | `{}` | securityContext for the pod. see more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | probes.liveness.enabled | bool | `true` |  |
 | probes.liveness.failureThreshold | int | `5` |  |
 | probes.liveness.initialDelaySeconds | int | `0` |  |
@@ -71,7 +71,7 @@ An SSO and OAuth login solution for nginx using the auth_request module.
 | probes.startup.periodSeconds | int | `10` |  |
 | replicaCount | int | `1` | how many pod replicas to deploy |
 | resources | object | `{}` |  |
-| securityContext | object | `{}` |  |
+| securityContext | object | `{}` | securityContext for the container. see more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | service.externalTrafficPolicy | string | `nil` |  |
 | service.port | int | `9090` |  |
 | service.type | string | `"ClusterIP"` |  |

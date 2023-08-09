@@ -9,11 +9,13 @@ image:
   repository: quay.io/vouch/vouch-proxy
   # -- change the tag we use for the vouch docker image
   tag: ""
+  # -- image pullPolicy, set to always if using an image with the latest tag
   pullPolicy: IfNotPresent
 
 # -- Allow to specify an alternate command before launching vouch
-# ex: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"]
+# example: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"]
 command: []
+# -- arguments to command for container
 args: []
 
 imagePullSecrets: []
@@ -29,9 +31,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
+# -- securityContext for the pod. see more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 podSecurityContext: {}
   # fsGroup: 2000
 
+# -- securityContext for the container. see more: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 securityContext: {}
   # privileged: true
   # capabilities:
@@ -111,12 +115,18 @@ config:
   existingSecretName: ""
 
   vouch:
+    # -- the container port for vouch
     port: 9090
+    # -- specific domains you'd like to allow access from
     domains: []
+    # -- wheather or not to allow ALL users to login
     allowAllUsers: false
+    # -- list of emails for users that allowed to use SSO via vouch
     whiteList: []
     jwt:
+      # -- pass in a secret to used for cookies
       secret: ''
+    # -- set to true to enable a testing mode, see more: https://github.com/vouch/vouch-proxy#im-getting-an-infinite-redirect-loop-which-returns-me-to-my-idp-googleoktagithub
     testing: false
 
   # https://console.developers.google.com/apis/credentials
@@ -127,7 +137,9 @@ config:
     client_id: ""
     # -- clientSecret from your provider
     client_secret: ""
+    # -- valid callback urls to use, example https://vouch.example.com/auth
     callback_urls: []
+    # -- preferred domain
     preferredDomain: ""
 
 # -- An array to add extra environment variables
