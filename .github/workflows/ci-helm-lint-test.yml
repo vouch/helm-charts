@@ -1,0 +1,55 @@
+name: Lint and Test Chart
+
+on:
+  pull_request:
+    paths:
+      - 'charts/**'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3.5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run chart-testing (lint)
+        id: lint
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.8.0
+        if: steps.list-changed.outputs.changed == 'true'
+      
+      - name: Pull and side-load docker container
+        run: |
+          docker pull --platform=linux/amd64 docker.io/jessebot/bweso:v0.2.0 && \
+          kind load docker-image docker.io/jessebot/bweso:v0.2.0 --name chart-testing
+        shell: bash
+
+      - name: Run chart-testing (install)
+        id: install
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct install --target-branch ${{ github.event.repository.default_branch }} --helm-extra-set-args="--set=bitwarden_eso_provider.create_cluster_secret_store=false --set=bitwarden_eso_provider.auth.password=${BOT_PASSWORD} --set=bitwarden_eso_provider.auth.clientID=${BOT_CLIENT_ID} --set=bitwarden_eso_provider.auth.clientSecret=${BOT_CLIENT_SECRET}"
