@@ -70,7 +70,7 @@ stringData:
 ```
 
 ## License
-Chart documentation is available in [helm-charts licencse](./LICENSE). We've kept it the same as the upstream chart. All credit for the vouch-proxy goes to the [Vouch project](https://github.com/vouch) :)
+This uses the [MIT licencse](./LICENSE). We've kept it the same as the upstream chart. All credit for the vouch-proxy goes to the [Vouch project](https://github.com/vouch) :)
 
 ## Contributing
 We'd love to have you contribute! Please refer to our [contribution guidelines](./CONTRIBUTING.md) for details.
