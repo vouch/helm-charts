@@ -17,15 +17,11 @@ keywords:
   - sso
   - sso-login
 
-version: 3.3.1
+version: 4.0.0
 
 # renovate: image=quay.io/vouch/vouch-proxy
 appVersion: "0.39"
 
 maintainers:
-  - name: punkle
-    email: brian@roadie.io
-  - name: halkeye
-    email: helm@gavinmogan.com
   - name: jessebot
     email: jessebot@linux.com

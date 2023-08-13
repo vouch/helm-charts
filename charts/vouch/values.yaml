@@ -8,19 +8,19 @@ replicaCount: 1
 image:
   repository: quay.io/vouch/vouch-proxy
   # -- change the tag we use for the vouch docker image
-  tag: ""
+  tag: ''
   # -- image pullPolicy, set to always if using an image with the latest tag
   pullPolicy: IfNotPresent
 
 # -- Allow to specify an alternate command before launching vouch
-# example: command: ["/bin/sh", "-c", "source /vault/secrets/config && /vouch-proxy"]
+# example: command: ['/bin/sh', '-c', 'source /vault/secrets/config && /vouch-proxy']
 command: []
 # -- arguments to command for container
 args: []
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -76,8 +76,8 @@ ingress:
   enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  paths: ["/"]
+    # kubernetes.io/tls-acme: 'true'
+  paths: ['/']
   hosts:
     - chart-example.local
   tls: []
@@ -111,39 +111,90 @@ deploymentAnnotations: {}
 # bare minimum to get vouch running with google
 
 config:
-  # -- Allow overriding the config value with an existing secret, like a sealed secret
-  existingSecretName: ""
+  # -- Allow overriding the ENTIRE config.yaml value with an existing secret,
+  # like a sealed secret. If not empty string, ALL  values under config are ignored
+  # except for config.existing. For all possible config.yaml values, see:
+  # https://github.com/vouch/vouch-proxy/blob/master/config/config.yml_example
+  overrideConfigExistingSecret: ''
 
   vouch:
+    # --  logging level for vouch
+    logLevel: debug
+    # -- if you enable this, it will    force all 302 redirects to be rendered as a webpage with a link
+    testing: false
     # -- the container port for vouch
     port: 9090
-    # -- specific domains you'd like to allow access from
+    # -- array of specific domains you'd like to allow access from
     domains: []
-    # -- wheather or not to allow ALL users to login
-    allowAllUsers: false
-    # -- list of emails for users that allowed to use SSO via vouch
+    # -- array of emails for users that allowed to use SSO via vouch
     whiteList: []
+    # -- whether or not to allow ALL users to login
+    allowAllUsers: false
     jwt:
       # -- pass in a secret to used for cookies
       secret: ''
-    # -- set to true to enable a testing mode, see more: https://github.com/vouch/vouch-proxy#im-getting-an-infinite-redirect-loop-which-returns-me-to-my-idp-googleoktagithub
-    testing: false
+    # -- existingSecret for domains, whiteList, and jwtSecret. If this value is
+    # not empty, we ignore vouch.domains, vouch.whiteList, and vouch.jwt.secret
+    existingSecret: ''
+    # keys in vouch.existingSecret to use for vouch config
+    secretKeys:
+      # -- secret key in vouch.existingSecret with comma seperated list of
+      # domains you'd like to allow access from. Example secret value in your
+      # existing secret: 'coolcats.com,cooldogs.com'
+      domains: 'domains'
+      # -- secret key in vouch.existingSecret with comma seperated list of emails
+      # for users that allowed to use SSO via vouch. Example secret value in your
+      # 'friend@coolcats.com,kitty@coolcats.com'
+      whiteList: 'whiteList'
+      # -- secret key in vouch.existingSecret to pass in a secret to used for cookies
+      jwtSecret: 'jwtSecret'
 
   # https://console.developers.google.com/apis/credentials
   oauth:
     # -- oauth2 provider, such as keycloak
-    provider: ""
+    provider: ''
     # -- clientID from  your provider
-    client_id: ""
+    clientId: ''
     # -- clientSecret from your provider
-    client_secret: ""
+    clientSecret: ''
+    # -- authentication url from your oidc provider
+    authUrl: ''
+    # -- token url from your oidc provider
+    tokenUrl: ''
+    # -- user info Url from your oidc provider
+    userInfoUrl: ''
+    # -- array of scopes to get from the provider e.g. [openid, email, profile]
+    scopes: []
     # -- valid callback urls to use, example https://vouch.example.com/auth
-    callback_urls: []
+    callbackUrls: []
     # -- preferred domain
-    preferredDomain: ""
+    preferredDomain: ''
+    # -- existingSecret for clientId, clientSecret, authUrl, tokenUrl,
+    # userInfoUrl, scopes, callbackUrls, and preferredDomain. If this value
+    # is not empty, we will ignore all of those plain text values and only use
+    # your secret keys
+    existingSecret: ''
+    # keys in oauth.existingSecret to use for Oauth2 config
+    secretKeys:
+      # -- secret key in oauth.existingSecret for the clientID from your provider
+      clientId: 'clientId'
+      # -- secret key in oauth.existingSecret for clientSecret from your provider
+      clientSecret: 'clientSecret'
+      # -- secret key in oauth.existingSecret for authentication url from your oidc provider
+      authUrl: 'authUrl'
+      # -- secret key in oauth.existingSecret for token url from your oidc provider
+      tokenUrl: 'tokenUrl'
+      # -- secret key in oauth.existingSecret for userInfoUrl from your oidc provider
+      userInfoUrl: 'userInfoUrl'
+      # -- secret key in oauth.existingSecret for commas seperated list of valid
+      # callback urls to use, example value for your key in your existing secert:
+      # 'https://vouch.example.com/auth,https://vouch.example.com/login'
+      callbackUrls: 'callbackUrls'
+      # -- secret key in oauth.existingSecret for your preferred domain
+      preferredDomain: 'preferredDomain'
 
 # -- An array to add extra environment variables
 extraEnvVars: []
 # Example:
 #   - name: HTTPS_PROXY
-#     value: "https://example.com"
+#     value: 'https://example.com'

@@ -1,4 +1,3 @@
-{{/* vim: set filetype=mustache: */}}
 {{/*
 Expand the name of the chart.
 */}}
@@ -61,3 +60,32 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create the name of the secret to use for vouch config
+*/}}
+{{- define "vouch.config.secret.name" -}}
+{{- if .Values.config.overrideConfigExistingSecretName -}}
+{{- .Values.config.overrideConfigExistingSecretName -}}
+{{- else if .Values.config.vouch.existingSecret -}}
+{{- .Values.config.vouch.existingSecret -}}
+{{ template "vouch.fullname" . }}
+{{- else -}}
+
+{{- end -}}
+{{- end -}}
+
+
+{{/*
+Create the name of the secret to use for vouch oauth config
+*/}}
+{{- define "vouch.oauth.secret.name" -}}
+{{- if .Values.config.overrideConfigExistingSecretName -}}
+{{- .Values.config.overrideConfigExistingSecretName -}}
+{{- else if .Values.config.oauth.existingSecret -}}
+{{- .Values.config.oauth.existingSecret -}}
+{{- else -}}
+{{ template "vouch.fullname" . }}
+{{- end -}}
+{{- end -}}
+
