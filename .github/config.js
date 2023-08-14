@@ -6,7 +6,7 @@ module.exports = {
   includeForks: true,
   dryRun: null,
   repositories: ['jessebot/vouch-helm-chart'],
-    extends: ['config:base'],
+    extends: ['config:base', ':disableDependencyDashboard'],
     allowPostUpgradeCommandTemplating: true,
     allowedPostUpgradeCommands: ['^.*'],
     regexManagers: [
