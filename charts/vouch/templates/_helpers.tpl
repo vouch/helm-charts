@@ -69,9 +69,8 @@ Create the name of the secret to use for vouch config
 {{- .Values.config.overrideConfigExistingSecretName -}}
 {{- else if .Values.config.vouch.existingSecret -}}
 {{- .Values.config.vouch.existingSecret -}}
-{{ template "vouch.fullname" . }}
 {{- else -}}
-
+{{ template "vouch.fullname" . }}
 {{- end -}}
 {{- end -}}
 

@@ -1,6 +1,6 @@
 # vouch
 
-![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
+![Version: 4.0.1](https://img.shields.io/badge/Version-4.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.39](https://img.shields.io/badge/AppVersion-0.39-informational?style=flat-square)
 
 An SSO and OAuth login solution for nginx using the auth_request module.
 
