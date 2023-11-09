@@ -75,6 +75,7 @@ spec:
             httpGet:
               path: /healthcheck
               port: http
+              scheme: {{ if .Values.nativeTLSSecretName }}HTTPS{{- else }}HTTP{{- end }}
             initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
@@ -86,6 +87,7 @@ spec:
             httpGet:
               path: /healthcheck
               port: http
+              scheme: {{ if .Values.nativeTLSSecretName }}HTTPS{{- else }}HTTP{{- end }}
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
@@ -97,6 +99,7 @@ spec:
             httpGet:
               path: /healthcheck
               port: http
+              scheme: {{ if .Values.nativeTLSSecretName }}HTTPS{{- else }}HTTP{{- end }}
             initialDelaySeconds: {{ .Values.probes.startup.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.startup.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.startup.timeoutSeconds }}
@@ -108,6 +111,10 @@ spec:
             mountPath: /data
           - name: config
             mountPath: /config
+          {{- if .Values.nativeTLSSecretName }}
+          - name: tls
+            mountPath: /tls
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -116,6 +123,11 @@ spec:
           secretName: {{ if .Values.existingSecretName }}{{ .Values.existingSecretName }}{{- else }}{{ template "vouch.fullname" . }}{{- end }}
       - name: data
         emptyDir: {}
+      {{- if .Values.nativeTLSSecretName }}
+      - name: tls
+        secret:
+          secretName: {{ .Values.nativeTLSSecretName }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -102,11 +102,21 @@ podAnnotations: {}
 
 deploymentAnnotations: {}
 
+# If you want to have native TLS support on Vouch, use this Secret as TLS certificate
+# If you configured it this way, the ingress will have to communicate with Vouch using HTTPS
+# The annotations are already included for Nginx and Traefik ingress, and can be added as annotation to the ingress
+nativeTLSSecretName: ""
+
 # vouch config
 # bare minimum to get vouch running with google
 
 config:
   vouch:
+    # tls key must exists if nativeTLSSecretName is set for native TLS to work
+    # Certs are mounted in /tls and the file name must map the ones set in the Secret
+    # tls:
+    #   cert: /tls/tls.crt
+    #   key: /tls/tls.key
     port: 9090
     domains: []
     allowAllUsers: false

@@ -14,8 +14,12 @@ metadata:
   name: {{ $fullName }}
   labels:
 {{ include "vouch.labels" . | indent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- if .Values.nativeTLSSecretName }}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    ingress.kubernetes.io/protocol: https
+  {{- end }}
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
