@@ -43,6 +43,7 @@ service:
   externalTrafficPolicy:
   type: ClusterIP
   port: 9090
+  annotations: {}
 
 probes:
   liveness:
